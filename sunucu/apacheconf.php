@@ -14,3 +14,9 @@
     </Directory>
 
 </VirtualHost>
+
+
+sudo a2enmod cache
+sudo a2enmod cache_disk
+sudo a2enmod expires
+sudo a2enmod headers

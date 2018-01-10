@@ -7,3 +7,7 @@ FLUSH PRIVILEGES;
 nano /etc/mysql/my.cnf
 #bind-address = 127.0.0.1
 sudo /etc/init.d/mysql restart
+
+
+GRANT ALL PRIVILEGES ON *.* TO 'jybp293Asdmw'@'%' IDENTIFIED BY 'jybp293Asdmw' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
