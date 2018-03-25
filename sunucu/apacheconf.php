@@ -20,3 +20,6 @@ sudo a2enmod cache
 sudo a2enmod cache_disk
 sudo a2enmod expires
 sudo a2enmod headers
+
+sudo a2ensite example.com.conf
+sudo a2ensite test.com.conf
