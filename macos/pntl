@@ -1,0 +1,32 @@
+# Command lines tools
+xcode-select --install
+
+# Dirs
+mkdir -p /Applications/MAMP/bin/php/php7.0.22/include
+cd /Applications/MAMP/bin/php/php7.0.22/include
+
+# Download PHP 7.1.1 sourcess
+wget http://fr2.php.net/get/php-7.0.22.tar.bz2/from/this/mirror -O php-7.0.22.tar.bz2
+
+# Extract
+tar -xjvf php-7.0.22.tar.bz2
+mv php-7.0.22 php
+
+# Configure PHP
+cd /Applications/MAMP/bin/php/php7.0.22/include/php/php-7.0.22
+./configure --with-gd=shared --with-jpeg-dir=/usr/local/opt/jpeg --with-png-dir=/usr/local/opt/libpng --with-zlib --with-zlib-dir=/usr/local/opt/lzlib --with-freetype-dir=/usr/local/opt/freetype --prefix=/Applications/MAMP/bin/php/php7.0.22 --exec-prefix=/Applications/MAMP/bin/php/php7.0.22 --sysconfdir=/Applications/MAMP/bin/php/php7.0.22/conf --with-config-file-path=/Applications/MAMP/bin/php/php7.0.22/conf --enable-ftp --enable-gd-native-ttf --with-bz2=/usr --with-ldap --with-mysqli=mysqlnd --enable-mbstring=all --with-curl=/usr/local/opt/curl --enable-sockets --enable-bcmath --with-imap=shared,/usr/local/opt/imap-uw --enable-soap --with-kerberos --enable-calendar --with-pgsql=shared,/usr/local/opt/postgresql --enable-exif --with-libxml-dir=/usr/local/opt/libxml2 --with-gettext=shared,/usr/local/opt/gettext --with-xsl=/usr/local/opt/libxslt --with-pdo-mysql=mysqlnd --with-pdo-pgsql=shared,/usr/local/opt/postgresql --with-mcrypt=shared,/usr/local/opt/mcrypt --with-openssl=/usr/local/opt/openssl --enable-zip --with-iconv=/usr/local/opt/libiconv --enable-opcache --enable-intl --with-tidy=shared --with-icu-dir=/usr/local/opt/icu4c --enable-wddx --with-libexpat-dir=/usr/local/opt/expat --with-readline=/usr/local/opt/readline --with-mhash YACC=/usr/local/opt/bison/bin/bison --with-webp-dir=/usr/local/opt/webp
+
+# Add MAMP's PHP binaries to PATH
+export PATH=/Applications/MAMP/bin/php/php7.0.22/bin/:$PATH
+
+# Phpize
+cd /Applications/MAMP/bin/php/php7.0.22/include/php/php-7.0.22/ext/pcntl
+phpize
+
+# Build
+./configure
+make
+
+# Install ext
+cp modules/pcntl.so /Applications/MAMP/bin/php/php7.0.22/lib/php/extensions/no-debug-non-zts-20151012ph/
+echo "extension=pcntl.so" >> /Applications/MAMP/bin/php/php7.0.22/conf/php.ini

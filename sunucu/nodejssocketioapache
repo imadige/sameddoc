@@ -1,0 +1,24 @@
+I finally managed to do it, thanks to this topic.
+
+TODO:
+
+1) Have Apache 2.4 installed (doesn't work with 2.2), and do:
+
+a2enmod proxy
+a2enmod proxy_http
+a2enmod proxy_wstunnel
+2) Have nodejs running on port 3001
+
+3) Do this in the Apache config
+
+<VirtualHost *:80>
+  ServerName www.domain2.com
+
+  RewriteEngine On
+  RewriteCond %{REQUEST_URI}  ^/socket.io            [NC]
+  RewriteCond %{QUERY_STRING} transport=websocket    [NC]
+  RewriteRule /(.*)           ws://localhost:3001/$1 [P,L]
+
+  ProxyPass / http://localhost:3001/
+  ProxyPassReverse / http://localhost:3001/
+</VirtualHost>
